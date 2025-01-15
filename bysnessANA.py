@@ -47,7 +47,7 @@ data = pd.read_csv('data_dashboard_large.csv')
 st.title("Dashboard Interactif des Performances de l'Entreprise")
 
 # Section Résumé
-st.header("Performances")
+#st.header("Performances")
 total_ventes = data['Montant'].sum()
 total_transactions = data['ID_Client'].count()
 montant_moyen = data['Montant'].mean()
