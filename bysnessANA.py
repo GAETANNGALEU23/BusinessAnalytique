@@ -136,3 +136,14 @@ chart_satisfaction_par_magasin = alt.Chart(satisfaction_par_magasin).mark_bar().
     title='Satisfaction par magasin'
 )
 st.altair_chart(chart_satisfaction_par_magasin, use_container_width=True)
+
+# Filtres dynamiques
+st.sidebar.header("Filtres")
+magasin_filtre = st.sidebar.multiselect("Sélectionnez le(s) magasin(s)", options=data['Magasin'].unique(), default=data['Magasin'].unique())
+categorie_filtre = st.sidebar.multiselect("Sélectionnez la/les catégorie(s)", options=data['Categorie_Produit'].unique(), default=data['Categorie_Produit'].unique())
+mode_paiement_filtre = st.sidebar.multiselect("Sélectionnez le(s) mode(s) de paiement", options=data['Mode_Paiement'].unique(), default=data['Mode_Paiement'].unique())
+
+data_filtre = data[(data['Magasin'].isin(magasin_filtre)) & (data['Categorie_Produit'].isin(categorie_filtre)) & (data['Mode_Paiement'].isin(mode_paiement_filtre))]
+
+# Afficher les données filtrées
+st.dataframe(data_filtre)
