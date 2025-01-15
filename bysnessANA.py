@@ -18,3 +18,9 @@ st.metric("Total des ventes (€)", f"{total_ventes:,.2f}")
 st.metric("Nombre total de transactions", total_transactions)
 st.metric("Montant moyen par transaction (€)", f"{montant_moyen:,.2f}")
 st.metric("Satisfaction client moyenne", f"{satisfaction_moyenne:.2f}")
+
+# Histogramme des ventes quotidiennes
+df['Date_Transaction'] = pd.to_datetime(df['Date_Transaction'])
+ventes_journalieres = df.groupby(df['Date_Transaction'].dt.date)['Montant'].sum().reset_index()
+fig_ventes_journalieres = px.line(ventes_journalieres, x='Date_Transaction', y='Montant', title='Ventes quotidiennes')
+st.plotly_chart(fig_ventes_journalieres)
