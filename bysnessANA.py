@@ -20,7 +20,13 @@ st.metric("Montant moyen par transaction (€)", f"{montant_moyen:,.2f}")
 st.metric("Satisfaction client moyenne", f"{satisfaction_moyenne:.2f}")
 
 # Histogramme des ventes quotidiennes
-df['Date_Transaction'] = pd.to_datetime(df['Date_Transaction'])
-ventes_journalieres = df.groupby(df['Date_Transaction'].dt.date)['Montant'].sum().reset_index()
-fig_ventes_journalieres = px.line(ventes_journalieres, x='Date_Transaction', y='Montant', title='Ventes quotidiennes')
-st.plotly_chart(fig_ventes_journalieres)
+#df['Date_Transaction'] = pd.to_datetime(df['Date_Transaction'])
+#ventes_journalieres = df.groupby(df['Date_Transaction'].dt.date)['Montant'].sum().reset_index()
+#fig_ventes_journalieres = px.line(ventes_journalieres, x='Date_Transaction', y='Montant', title='Ventes quotidiennes')
+#st.plotly_chart(fig_ventes_journalieres)
+
+# Ajoutez des sections et des graphiques pour les autres analyses 
+st.sidebar.header("Filtres") 
+magasin_filter = st.sidebar.multiselect("Sélectionnez le(s) magasin(s)", options=df['Magasin'].unique())
+if magasin_filter: 
+  df = df[df['Magasin'].isin(magasin_filter)]
